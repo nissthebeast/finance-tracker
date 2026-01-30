@@ -25,18 +25,19 @@ public class TransactionController {
         return transactionRepository.findAll();
     }
 
-    @GetMapping
-    public Transaction getTRansactionById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public Transaction getTransactionById(@PathVariable Long id) {
         return transactionRepository.findById(id).get();
     }
 
-    @PutMapping
-    public Transaction updateTransaction(@RequestBody Transaction transaction) {
+    @PutMapping("/{id}")
+    public Transaction updateTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
+        transaction.setId(id);
         return transactionRepository.save(transaction);
     }
 
-    @DeleteMapping
-    public void deleteTransaction(@RequestBody Transaction transaction) {
-        transactionRepository.delete(transaction);
+    @DeleteMapping("/{id}")
+    public void deleteTransaction(@PathVariable Long id) {
+        transactionRepository.deleteById(id);
     }
 }
